@@ -1,4 +1,3 @@
-#include <cstdio>
 #include <string>
 #include <array>
 
@@ -11,14 +10,15 @@ namespace logging{
         ERROR,
     };
     
-    
-
+    //Set the array size equal to the value of error + 1 (error always has to have to highest value / last enum, or have to change the below static_cast)
     std::array<std::string, static_cast<int>(ERROR + 1)> logLevelNames {
         "INFO",
         "WARNING",
         "ERROR"
     };
     
+    //converts the value of the enum type from an int to a string
+    //string isn't an issue because of SSO
     std::string enumToString(int enumVal){
         switch (enumVal) {
             case 0 :
@@ -34,7 +34,7 @@ namespace logging{
         return "ERROR CONVERTING TO ENUMVAL";
     }
 
-    template <typename T> void log(int logLevel, T func_name) {
-        printf("[%s %s %s] In function %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  func_name);
+    template <typename T> void log(int logLevel, T funcName, const char* extraInfo = "no info given") {
+        printf("[%s %s %s] In function %s %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, extraInfo);
     }
 }

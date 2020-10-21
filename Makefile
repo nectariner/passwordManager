@@ -2,7 +2,7 @@
 appname=test
 
 CXX=clang++
-CXXFLAGS=-std=c++14 -Wall -Weffc++ -Wextra -Wsign-conversion
+CXXFLAGS=-std=c++17 -Wall -Weffc++ -Wextra -Wsign-conversion
 SOURCE_DIRECTORY=./src/
 TARGET_DIRECTORY=./build/
 
