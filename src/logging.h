@@ -34,7 +34,8 @@ namespace logging{
         return "ERROR CONVERTING TO ENUMVAL";
     }
 
-    template <typename T> void log(int logLevel, T funcName, const char* extraInfo = "no info given") {
-        printf("[%s %s %s] In function %s %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, extraInfo);
+    //layout of logging goes : LOGGINGLEVEL -> DATE -> TIME -> FUNCTIONNAME -> LINE -> EXTRAINFO
+    template <typename T, typename Y> void log(int logLevel, T funcName, Y line, const char* extraInfo = "no info given") {
+        printf("[%s %s %s] In function %s Line-%d %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, line, extraInfo);
     }
 }
