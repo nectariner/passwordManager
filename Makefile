@@ -13,13 +13,18 @@ all: output
 
 main.o: $(SOURCE_DIRECTORY)/main.cpp
 	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIRECTORY)main.cpp -o $(TARGET_DIRECTORY)main.o
+
+encryption.o: $(SOURCE_DIRECTORY)/encryption.cpp
+	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIRECTORY)encryption.cpp -o $(TARGET_DIRECTORY)encryption.o
 	
 output: main.o
-	$(CXX) $(CXXFLAGS) $(TARGET_DIRECTORY)/main.o -o $(TARGET_DIRECTORY)output
-	
+	$(CXX) $(CXXFLAGS) $(TARGET_DIRECTORY)*.o -o $(TARGET_DIRECTORY)output
 	
 run:
 	$(TARGET_DIRECTORY)/output
+
+test:
+	$(CXX) $(CXXFLAGS) $(SOURCE_DIRECTORY)main.cpp $(SOURCE_DIRECTORY)encryption.cpp 
 
 clean:
 	rm -r $(TARGET_DIRECTORY)/*
