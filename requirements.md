@@ -7,3 +7,5 @@
 
 - can generate secure passwords and secure them
 - copy passwords to clipboard
+
+-make a nice ansi escape code for logging colours
