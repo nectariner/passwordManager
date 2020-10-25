@@ -11,14 +11,17 @@ TARGET_DIRECTORY=./build/
 
 all: output
 
-main.o: $(SOURCE_DIRECTORY)/main.cpp
+main.o: $(SOURCE_DIRECTORY)/main.cpp buildDir
 	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIRECTORY)main.cpp -o $(TARGET_DIRECTORY)main.o
 
-encryption.o: $(SOURCE_DIRECTORY)/encryption.cpp
+encryption.o: $(SOURCE_DIRECTORY)/encryption.cpp buildDir
 	$(CXX) $(CXXFLAGS) -c $(SOURCE_DIRECTORY)encryption.cpp -o $(TARGET_DIRECTORY)encryption.o
 	
-output: main.o encryption.o
+output: main.o encryption.o buildDir
 	$(CXX) $(CXXFLAGS) $(TARGET_DIRECTORY)*.o -o $(TARGET_DIRECTORY)output
+	
+buildDir:
+	mkdir build
 	
 run:
 	$(TARGET_DIRECTORY)/output
