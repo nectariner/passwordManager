@@ -1,1 +1,1 @@
-bool encryptFile(std::ifstream& myFile);
+bool encryptFile();
