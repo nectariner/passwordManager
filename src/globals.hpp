@@ -1,7 +1,11 @@
-namespace globals {
-    constexpr char g_applicationNamep[] { "passwordManager" };
+#ifndef GLOBALS_INCLUDED
+    #define GLOBALS_INCLUDED
+    namespace globals {
+            constexpr char g_applicationNamep[] { "passwordManager" };
 
-    //testEnv data CHANGE FOR PRODUCTION
-//    constexpr std::string_view g_initialisationFileLocation { "testEnv/passwordManager/passwordManagerrc" };
-    constexpr char g_initialisationFileLocation[] { "testEnv/passwordManager/passwordManagerrc" } ;
-}
+        //testEnv data CHANGE FOR PRODUCTION
+        //    constexpr std::string_view g_initialisationFileLocation { "testEnv/passwordManager/passwordManagerrc" };
+            constexpr char g_initialisationFileLocation[] { "testEnv/passwordManager/passwordManagerrc" } ;
+        }
+
+#endif

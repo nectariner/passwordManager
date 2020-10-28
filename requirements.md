@@ -11,3 +11,5 @@
 -make a nice ansi escape code for logging colours
 
 - implemement logging levels functionality (only print the logging levels desired)
+
+- parsing arguments

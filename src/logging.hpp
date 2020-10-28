@@ -1,6 +1,7 @@
 #include<array>
+#include "globals.hpp"
 
-namespace logging{
+namespace logging {
     //need logLevel and logLevelNames need to match always
     //This is to be able to convert level (int) to char[] and print log level name
     enum logLevel {
@@ -37,4 +38,31 @@ namespace logging{
     template <typename T, typename Y> void log(int logLevel, T funcName, Y line, const char* extraInfo = "no info given") {
         printf("[%s %s %s] In function %s Line-%d %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, line, extraInfo);
     }
+
+    //can be used to show the contents of the file at any given time in a pretty format
+    //return false if fails (should then be logged ERROR)
+    template <typename T>
+    bool logFileContents(int logLevel, T funcName, char* extraInfo = ""){
+        std::ifstream file { globals::g_initialisationFileLocation, std::ios::in };
+        std::string test;
+        std::cout << "\n\n===================logFileContents===================\n\n";
+        printf("[%s %s %s] In function %s Line-%d %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, 10, extraInfo);
+        int numOfLines { 0 };
+        while (true) {
+            std::string encryptedLine;
+            std::getline(file, test);
+            if (file.eof())
+                break;
+            else {
+                numOfLines++;
+                std::cout << test << "\n";
+            }
+        }
+        std::cout << "\nnumber of lines in file = " << numOfLines;
+        std::cout << extraInfo;
+        std::cout << "\n===================logFileContents===================\n\n";
+        return true;
+    }
+
+
 }
