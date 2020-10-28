@@ -20,10 +20,8 @@ namespace caesarCipher {
     //TODO: log an error if it fails
     bool encryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-        logging::logFileContents(logging::INFO, __func__, __LINE__, "Contents of current line are: ");
-        int numOfLines { 0 };
         std::ifstream myFile { globals::g_initialisationFileLocation };
-        logging::logFileContents(logging::INFO, __func__, "\nthis is before encrpytion\n");
+        logging::logFileContents(logging::INFO, __func__, __LINE__, "\nNOTE: this is before encrpytion\n");
 
  //open file
         std::ifstream file { globals::g_initialisationFileLocation, std::ios::out };
