@@ -10,6 +10,7 @@
 
 #include "encryption.hpp"
 int main(int argc, char *argv[], char *envp[]) {
+    logging::log(logging::INFO, __func__, __LINE__, "Program just started");
     //out first environment variable
 //    std::cout << envp[1];
 
@@ -20,22 +21,23 @@ int main(int argc, char *argv[], char *envp[]) {
     //in future it needs to just say "needs arguments"
     int key {};
     if (argc == 1) {
-        int key { 1 };
+        key = 1 ;
+    } else{
+        //TODO: parseArguments and set them as const
+        key = 1;
     }
-    // else get it from the args
 
-    logging::log(logging::INFO, __func__, __LINE__, "Program just started");
-    
     //check if it's been setup initially (e.g. folder ~/.config/password_manager/passwordmaanger.rc exists);
-    if (!(std::ifstream { globals::g_initialisationFileLocation  })) {
+    if (!(std::ifstream { globals::g_initialisationFileLocation.data()  })) {
         logging::log(logging::ERROR, __func__, __LINE__, "Failed to open file, Exiting");
         return 1;
     }
     else {
         logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
     }
-    
+
     caesarCipher::encryptFile(key);
+    caesarCipher::decryptFile(key);
 
     logging::log(logging::INFO, __func__, __LINE__,"end of program, returning 0\n" );
     return 0;

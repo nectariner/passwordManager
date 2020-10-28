@@ -42,29 +42,29 @@ namespace logging {
     //can be used to show the contents of the file at any given time in a pretty format
     //return false if fails (should then be logged ERROR)
     template <typename functionName, typename lineNumber>
-    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, char* extraInfo = ""){
-        std::ifstream file { globals::g_initialisationFileLocation, std::ios::in };
-        std::string test;
-        std::cout << "\n\n===================logFileContents===================\n\n";
+    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, std::string_view fileName, char* extraInfo = ""){
+        std::ifstream file { fileName.data(), std::ios::in };
+        std::string line;
+        std::cout << "\n\n===================logFileContents Start===================\n\n";
         printf("[%s %s %s] In function %s Line-%d %s\n", enumToString(logLevel).c_str(),__DATE__, __TIME__,  funcName, 10, extraInfo);
         int numOfLines { 0 };
         while (true) {
-            std::string encryptedLine;
-            std::getline(file, test);
+            std::getline(file, line);
             if (file.eof())
                 break;
             else {
                 numOfLines++;
-                std::cout << test << "\n";
+                std::cout << line << "\n";
             }
         }
         std::cout << "\nnumber of lines in file = " << numOfLines;
         std::cout << extraInfo;
-        std::cout << "\n===================logFileContents===================\n\n";
+        std::cout << "\n===================logFileContents End=====================\n\n";
         return true;
     }
 
 
 }
+//logFileContents(1, __func__, __LINE__, fileName);
 
 //TODO: validation function / namespace for checking if a file was opened successfully and returns something like a boolean or int depending on what went wrong (if it failed) e.g. doesn't exist, no read permissions, no write permissions (although write permissions won't always fail)

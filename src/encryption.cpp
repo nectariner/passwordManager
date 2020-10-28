@@ -11,20 +11,22 @@
 #endif
 
 namespace caesarCipher {
-    bool unencrypt(int key) {
-
-    }   
+    bool decryptFile(int key) {
+        logging::log(logging::INFO, __func__, __LINE__);
+        encryptFile(-(key));
+    }
 
 
     //return true if successful encrypt, else return null or false
     //TODO: log an error if it fails
     bool encryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-        std::ifstream myFile { globals::g_initialisationFileLocation };
-        logging::logFileContents(logging::INFO, __func__, __LINE__, "\nNOTE: this is before encrpytion\n");
+        std::ifstream myFile { globals::g_initialisationFileLocation.data() };
+        std::ofstream newFile { "testEnv/passwordManager/passwordManagerrcTest", std::ios::trunc};
+        logging::logFileContents(logging::INFO, __func__, __LINE__, globals::g_initialisationFileLocation,  "\nNOTE: this is before encrpytion\n");
 
  //open file
-        std::ifstream file { globals::g_initialisationFileLocation, std::ios::out };
+        std::ifstream file { globals::g_initialisationFileLocation.data(), std::ios::out };
         //string to store the contents of the current line in
         std::string lineContents;
 
@@ -41,7 +43,8 @@ namespace caesarCipher {
             }
             //output
             //TODO: needs to be written to file
-            std::cout << "encryptedLine = " << encryptedLine << "\n";
+            newFile << encryptedLine;
+            newFile << "\n";
         }
         return true;
     }
