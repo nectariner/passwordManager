@@ -12,36 +12,39 @@
 
 namespace caesarCipher {
     bool unencrypt(int key) {
-        std::cout << "in unencrypt\n";
-        std::ifstream file { globals::g_initialisationFileLocation, std::ios::out };
 
-        std::string test;
+    }   
+
+
+    //return true if successful encrypt, else return null or false
+    //TODO: log an error if it fails
+    bool encryptFile(int key) {
+        logging::log(logging::INFO, __func__, __LINE__);
+        logging::logFileContents(logging::INFO, __func__, __LINE__, "Contents of current line are: ");
+        int numOfLines { 0 };
+        std::ifstream myFile { globals::g_initialisationFileLocation };
+        logging::logFileContents(logging::INFO, __func__, "\nthis is before encrpytion\n");
+
+ //open file
+        std::ifstream file { globals::g_initialisationFileLocation, std::ios::out };
+        //string to store the contents of the current line in
+        std::string lineContents;
+
+        //read line by line until EOF, then break
         while (true) {
             std::string encryptedLine;
-            std::getline(file, test);
+            std::getline(file, lineContents);
             if (file.eof())
                 break;
-            std::cout << test << "\n";
-            //for (int i = 0; i < test.size(); i++){
-            for (std::string::iterator it = test.begin(); it != test.end(); ++it){
+            std::cout << lineContents << "\n";
+            //iterate over the contents of the string and increase by the key (caesar cipher)
+            for (std::string::iterator it = lineContents.begin(); it != lineContents.end(); ++it){
                 encryptedLine += static_cast<char>(*(it) + key);
             }
+            //output
+            //TODO: needs to be written to file
             std::cout << "encryptedLine = " << encryptedLine << "\n";
         }
-    }   
-}
-    
-bool encryptFile(int key) {
-    //aim for all responsibilities to be done by the function such as user input
-    logging::log(logging::INFO, __func__, __LINE__);
-//    int userInputForKey { 0 };
-//    std::cout << "Please enter a key to encrypt via caesar cipher\n";
-//    std::cin >> userInputForKey;
-//    std::string lineOfFile;
-
-    logging::log(logging::INFO, __func__, __LINE__, "Contents of current line are: ");
-    int numOfLines { 0 };
-    std::ifstream myFile { globals::g_initialisationFileLocation };
-    logging::logFileContents(logging::INFO, __func__, "\nthis is before encrpytion\n");
-    return true;
+        return true;
+    }
 }

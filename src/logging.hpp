@@ -41,8 +41,8 @@ namespace logging {
 
     //can be used to show the contents of the file at any given time in a pretty format
     //return false if fails (should then be logged ERROR)
-    template <typename T>
-    bool logFileContents(int logLevel, T funcName, char* extraInfo = ""){
+    template <typename functionName, typename lineNumber>
+    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, char* extraInfo = ""){
         std::ifstream file { globals::g_initialisationFileLocation, std::ios::in };
         std::string test;
         std::cout << "\n\n===================logFileContents===================\n\n";
@@ -66,3 +66,5 @@ namespace logging {
 
 
 }
+
+//TODO: validation function / namespace for checking if a file was opened successfully and returns something like a boolean or int depending on what went wrong (if it failed) e.g. doesn't exist, no read permissions, no write permissions (although write permissions won't always fail)
