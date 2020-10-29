@@ -20,6 +20,7 @@ namespace logging {
     //converts the value of the enum type from an int to a string
     //string isn't an issue because of SSO
     std::string enumToString(int enumVal){
+        //TODO: make these std::string_views and constexpr
         switch (enumVal) {
             case 0 :
                 return "INFO";
@@ -42,7 +43,7 @@ namespace logging {
     //can be used to show the contents of the file at any given time in a pretty format
     //return false if fails (should then be logged ERROR)
     template <typename functionName, typename lineNumber>
-    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, std::string_view fileName, char* extraInfo = ""){
+    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, std::string_view fileName, const char* extraInfo = ""){
         std::ifstream file { fileName.data(), std::ios::in };
         std::string line;
         std::cout << "\n\n===================logFileContents Start===================\n\n";

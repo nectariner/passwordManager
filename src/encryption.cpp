@@ -13,7 +13,8 @@
 namespace caesarCipher {
     bool decryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-        encryptFile(-(key));
+//        std::ifstream encryptedFile { "testEnv/passwordManager/passwordManagerrcTest" };
+        return true;
     }
 
 
@@ -36,7 +37,6 @@ namespace caesarCipher {
             std::getline(file, lineContents);
             if (file.eof())
                 break;
-            std::cout << lineContents << "\n";
             //iterate over the contents of the string and increase by the key (caesar cipher)
             for (std::string::iterator it = lineContents.begin(); it != lineContents.end(); ++it){
                 encryptedLine += static_cast<char>(*(it) + key);
