@@ -13,7 +13,8 @@
 namespace caesarCipher {
     bool decryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-//        std::ifstream encryptedFile { "testEnv/passwordManager/passwordManagerrcTest" };
+        //std::ifstream encryptedFile { globals::g_fileLocation };
+        //std::ofstream
         return true;
     }
 
@@ -22,20 +23,19 @@ namespace caesarCipher {
     //TODO: log an error if it fails
     bool encryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-        std::ifstream myFile { globals::g_initialisationFileLocation.data() };
-        std::ofstream newFile { "testEnv/passwordManager/passwordManagerrcTest", std::ios::trunc};
-        logging::logFileContents(logging::INFO, __func__, __LINE__, globals::g_initialisationFileLocation,  "\nNOTE: this is before encrpytion\n");
+        std::ifstream permFile { globals::g_fileLocation.data() };
+        std::ofstream newFile { globals::g_tempFileLocation.data(), std::ios::trunc};
+        logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation,  "\nNOTE: this is before encrpytion\n");
 
  //open file
-        std::ifstream file { globals::g_initialisationFileLocation.data(), std::ios::out };
         //string to store the contents of the current line in
         std::string lineContents;
 
         //read line by line until EOF, then break
         while (true) {
             std::string encryptedLine;
-            std::getline(file, lineContents);
-            if (file.eof())
+            std::getline(permFile, lineContents);
+            if (permFile.eof())
                 break;
             //iterate over the contents of the string and increase by the key (caesar cipher)
             for (std::string::iterator it = lineContents.begin(); it != lineContents.end(); ++it){
@@ -46,6 +46,13 @@ namespace caesarCipher {
             newFile << encryptedLine;
             newFile << "\n";
         }
+
+        //all written to tempFile now remove old and move new
+        //TODO:Come up with a better way to do this with the globals essentially
+//        constexpr std::string_view moveTempToPerm { "mv /tmp/.passwordManagerTemp /home/$USER/nextcloud/passwordManager/testEnv/passwordManager/passwordManagerrc" };
+
+//        system("mv")
+
         return true;
     }
 }

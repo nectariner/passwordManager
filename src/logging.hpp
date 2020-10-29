@@ -42,8 +42,8 @@ namespace logging {
 
     //can be used to show the contents of the file at any given time in a pretty format
     //return false if fails (should then be logged ERROR)
-    template <typename functionName, typename lineNumber>
-    bool logFileContents(int logLevel, functionName funcName, lineNumber lineNum, std::string_view fileName, const char* extraInfo = ""){
+    template <typename functionName>
+    bool logFileContents(int logLevel, functionName funcName, std::string_view fileName, const char* extraInfo = ""){
         std::ifstream file { fileName.data(), std::ios::in };
         std::string line;
         std::cout << "\n\n===================logFileContents Start===================\n\n";
