@@ -4,6 +4,7 @@
 #include <string>
 #include "encryption.hpp"
 #include "globals.hpp"
+#include <filesystem>
 
 #ifndef logging
     #define logging
@@ -24,7 +25,15 @@ namespace caesarCipher {
     bool encryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
         std::ifstream permFile { globals::g_fileLocation.data() };
+        if(!(permFile)) {
+            std::cout << "FAILEDTOOPENPERFMFILE\n";
+        }
+
         std::ofstream newFile { globals::g_tempFileLocation.data(), std::ios::trunc};
+        if(!(newFile)){
+            std::cout <<"FAILEDTOOPENNEWFILE\n";
+        }
+
         logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation,  "\nNOTE: this is before encrpytion\n");
 
  //open file
@@ -46,12 +55,16 @@ namespace caesarCipher {
             newFile << encryptedLine;
             newFile << "\n";
         }
+        permFile.close();
+        newFile.close();
+
 
         //all written to tempFile now remove old and move new
         //TODO:Come up with a better way to do this with the globals essentially
 //        constexpr std::string_view moveTempToPerm { "mv /tmp/.passwordManagerTemp /home/$USER/nextcloud/passwordManager/testEnv/passwordManager/passwordManagerrc" };
 
-//        system("mv")
+        //REVIEW: is there a better way to do this?
+        system("mv /tmp/.passwordManagerTemp ./testEnv/passwordManager/passwordManagerrc");
 
         return true;
     }
