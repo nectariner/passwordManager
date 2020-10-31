@@ -4,6 +4,7 @@
 namespace logging {
     //need logLevel and logLevelNames need to match always
     //This is to be able to convert level (int) to char[] and print log level name
+    //TODO:Add the level NONE as 0, the lowest level of info for no logging
     enum logLevel {
         INFO,
         WARNING,

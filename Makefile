@@ -2,10 +2,11 @@
 appname=test
 
 CXX=clang++
-CXXFLAGS=-std=c++17 -Wall -Weffc++ -Wextra -Wsign-conversion
+CXXFLAGS=-std=c++20 -Wall -Weffc++ -Wextra -Wsign-conversion
 SOURCE_DIRECTORY=./src/
 TARGET_DIRECTORY=./build/
 
+#TODO: sort this to make the makefile more robust
 #%.o: %.cpp %.hpp								#For each file compiled to an object, take the name of the file.cpp and file.hpp and compile to object
 #	$(CXX) $(CXXFLAGS) -c $^
 
