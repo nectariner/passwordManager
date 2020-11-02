@@ -14,9 +14,21 @@
 namespace caesarCipher {
     bool decryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
-        //std::ifstream encryptedFile { globals::g_fileLocation };
-        //std::ofstream
-        return true;
+        std::ifstream encryptedFile { globals::g_fileLocation.data() };
+        while (true) {
+            std::string encryptedLine;
+            std::string decryptedLine;
+            std::getline(encryptedFile, encryptedLine);
+            if(encryptedFile.eof()){
+                break;
+            }
+            for (std::string::iterator it = encryptedLine.begin(); it != encryptedLine.end(); ++it){
+                decryptedLine += static_cast<char>(*(it) - key);
+            }
+            std::cout << decryptedLine << "\n";
+
+        }
+            return true;
     }
 
 
@@ -65,6 +77,7 @@ namespace caesarCipher {
 
         //REVIEW: is there a better way to do this?
         system("mv /tmp/.passwordManagerTemp ./testEnv/passwordManager/passwordManagerrc");
+        logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation, "\nNOTE: This is after encryption");
 
         return true;
     }
