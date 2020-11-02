@@ -14,7 +14,7 @@ int main(int argc, char *argv[], char *envp[]) {
     //out first environment variable
 //    std::cout << envp[1];
 
-    std::cout << argc << "\n";
+    std::cout << argv[1] << "\n";
 //    std::cout << argv[1] << "\n";
     //testing
     //no arguments given, set test data because this is a cli tool

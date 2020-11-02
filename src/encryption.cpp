@@ -11,6 +11,9 @@
     #include "logging.hpp"
 #endif
 
+//TODO: get file handling into one function called multiple times
+//REVIEW: Good way of making decrypt just encrypt with "- key" call
+
 namespace caesarCipher {
     bool decryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);

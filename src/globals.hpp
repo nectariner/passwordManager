@@ -4,8 +4,8 @@
         constexpr std::string_view g_applicationName { "passwordManager" };
 
         //testEnv data CHANGE FOR PRODUCTION
-        //    constexpr std::string_view g_fileLocation { "testEnv/passwordManager/passwordManagerrc" };
-        constexpr std::string_view g_fileLocation { "testEnv/passwordManager/passwordManagerrc" };
+        //TODO: Change this to be not hardcoded
+        constexpr std::string_view g_fileLocation { "/home/fred/nextcloud/passwordManager/testEnv/passwordManager/passwordManagerrc" };
         constexpr std::string_view g_tempFileLocation { "/tmp/.passwordManagerTemp" };
 
     }
