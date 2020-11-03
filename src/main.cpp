@@ -11,15 +11,38 @@
 #include "encryption.hpp"
 int main(int argc, char *argv[], char *envp[]) {
     logging::log(logging::INFO, __func__, __LINE__, "Program just started");
-    //out first environment variable
-//    std::cout << envp[1];
+    // FLOW:
+    // Program called with arguments in the form of MODE -> METHOD -> KEY
+    // e.g. "passwordManager encrypt caesar 12"
+    //
+    // if this is valid then assign arguments to variables
+    // if not then print help message
 
-    std::cout << argv[1] << "\n";
+    //out first environment variable
+
+    //initialise variables that are arguments when running the program
+
+    //encrypt or decrypt
+    std::string mode {};
+    mode = static_cast<std::string>(argv[1]);
+    std::cout << mode << '\n';
+
+    //for now just caesar cipher
+    char method {};
+
+    //password / key (e.g. 2 for caesar cipher)
+    int key{};
+
+//    for (int i = 0; i < argc; i++){
+//        if (argv[argc][1] == 'm' )
+//        std::cout << static_cast<char>((argv[argc])[1]);
+//    }
+
+
 //    std::cout << argv[1] << "\n";
     //testing
     //no arguments given, set test data because this is a cli tool
     //in future it needs to just say "needs arguments"
-    int key {};
     if (argc == 1) {
         key = 1 ;
     } else{
@@ -37,7 +60,7 @@ int main(int argc, char *argv[], char *envp[]) {
     }
 
 //    caesarCipher::encryptFile(key);
-    caesarCipher::decryptFile(key);
+//    caesarCipher::decryptFile(key);
 
 
     logging::log(logging::INFO, __func__, __LINE__,"end of program, returning 0" );
