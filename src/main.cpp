@@ -18,7 +18,15 @@ int main(int argc, char *argv[], char *envp[]) {
     // if this is valid then assign arguments to variables
     // if not then print help message
 
-    //out first environment variable
+    //no Arguments given
+    //NOTE: This needs to be done differently as argc can be equal to 0 with no args
+    if (argc == 1) {
+        logging::log(logging::INFO, __func__, __LINE__, "no Arguments given");
+        std::cout << globals::g_helpMessage;
+        //TODO: return codes relating to ways the program exits
+        return 0;
+    }
+
 
     //initialise variables that are arguments when running the program
 
