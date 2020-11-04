@@ -8,6 +8,12 @@
     #include "logging.hpp"
 #endif
 
+void displayHelpMessage() {
+    std::cout << "PasswordManager\n";
+    std::cout << "Usage:\tpasswordManager Mode METHOD KEY\n";
+    std::cout << "\te.g. passwordManager encrypt caesar 11\n";
+}
+
 #include "encryption.hpp"
 int main(int argc, char *argv[], char *envp[]) {
     logging::log(logging::INFO, __func__, __LINE__, "Program just started");
@@ -22,7 +28,7 @@ int main(int argc, char *argv[], char *envp[]) {
     //NOTE: This needs to be done differently as argc can be equal to 0 with no args
     if (argc == 1) {
         logging::log(logging::INFO, __func__, __LINE__, "no Arguments given");
-        std::cout << globals::g_helpMessage;
+        displayHelpMessage();
         //TODO: return codes relating to ways the program exits
         return 0;
     }
