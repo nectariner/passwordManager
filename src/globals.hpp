@@ -11,12 +11,6 @@
 
         constexpr std::string_view g_helpMessage { "PasswordManager\nUsage: passwordManager MODE METHOD KEY\ne.g. passwordManager encrypt caesar 11\n" };
 
-//        void displayHelpMessage() {
-//            std::cout << "PasswordManager\n";
-//            std::cout << "Usage:\tpasswordManager Mode METHOD KEY\n";
-//            std::cout << "\te.g. passwordManager encrypt caesar 11\n";
-//
-//        }
 
 
 
