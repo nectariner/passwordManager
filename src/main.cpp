@@ -10,8 +10,10 @@
 
 void displayHelpMessage() {
     std::cout << "PasswordManager\n";
-    std::cout << "Usage:\tpasswordManager Mode METHOD KEY\n";
+    std::cout << "Usage - passwordManager Mode METHOD KEY\n";
     std::cout << "\te.g. passwordManager encrypt caesar 11\n";
+
+    std::cout << "\nModes -\tencrpyt\n\tunencrypt\n\tinitialise\n";
 }
 
 #include "encryption.hpp"
