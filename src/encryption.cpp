@@ -18,9 +18,11 @@ namespace caesarCipher {
     bool decryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
         std::ifstream encryptedFile { globals::g_fileLocation.data() };
+
+
+        std::string encryptedLine;
+        std::string decryptedLine;
         while (true) {
-            std::string encryptedLine;
-            std::string decryptedLine;
             std::getline(encryptedFile, encryptedLine);
             if(encryptedFile.eof()){
                 break;
@@ -40,10 +42,22 @@ namespace caesarCipher {
     bool encryptFile(int key) {
         logging::log(logging::INFO, __func__, __LINE__);
         std::ifstream permFile { globals::g_fileLocation.data() };
+
         if(!(permFile)) {
             std::cout << "FAILEDTOOPENPERFMFILE\n";
         }
 
+        //check if file is encrypted
+        //this also gets rid of the first line so no need to skip it afterwards
+        //if it's not encrypted, then encrypt
+        //if it is then warn the user and exit
+        if (checkIsEncrypted()){
+            std::cout << "File already encrypted, don't do this again\n";
+            std::exit(2);
+        } else {
+            std::cout << "file not encrypted, proceeding\n";
+        }
+        //check if the file is already encrypted, fail if it is and don't encrypt again
         std::ofstream newFile { globals::g_tempFileLocation.data(), std::ios::trunc};
         if(!(newFile)){
             std::cout <<"FAILEDTOOPENNEWFILE\n";
@@ -79,9 +93,27 @@ namespace caesarCipher {
 //        constexpr std::string_view moveTempToPerm { "mv /tmp/.passwordManagerTemp /home/$USER/nextcloud/passwordManager/testEnv/passwordManager/passwordManagerrc" };
 
         //REVIEW: is there a better way to do this?
-        system("mv /tmp/.passwordManagerTemp ./testEnv/passwordManager/passwordManagerrc");
+        system("mv /tmp/.passwordManagerTemp /home/fred/.config/passwordManager/passwordManagerrc");
         logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation, "\nNOTE: This is after encryption");
 
         return true;
+    }
+
+    //return true if it is already encrypted, false if not
+    //check if the first line of the file is [[passwordManager]], if it isn't then it's already encrypted
+    bool checkIsEncrypted(){
+        //check if the file is already encrypted, fail if it is and don't encrypt again
+        std::string firstLine;
+
+        //REVIEW: does this need to be put in globals??
+        constexpr std::string_view fileHeader { "[[passwordManager]]" };
+        std::ifstream file { globals::g_fileLocation.data() };
+        std::getline(file, firstLine);
+        if (firstLine == fileHeader){
+            std::cout << "they're equal\n";
+            return false;
+        } else {
+            return true;
+        }
     }
 }

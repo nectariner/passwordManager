@@ -75,7 +75,7 @@ int main(int argc, char *argv[], char *envp[]) {
         logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
     }
 
-//    caesarCipher::encryptFile(key);
+    caesarCipher::encryptFile(key);
 //    caesarCipher::decryptFile(key);
 
 
