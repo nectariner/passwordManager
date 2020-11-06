@@ -9,6 +9,8 @@
     #include "logging.hpp"
 #endif
 
+#include "encryption.hpp"
+
 void displayHelpMessage() {
     std::cout << "PasswordManager\n";
     std::cout << "Usage - passwordManager Mode METHOD KEY\n";
@@ -17,9 +19,14 @@ void displayHelpMessage() {
     std::cout << "\nModes -\tencrpyt\n\tunencrypt\n\tinitialise\n";
 }
 
-#include "encryption.hpp"
 int main(int argc, char *argv[]) {
     logging::log(logging::INFO, __func__, __LINE__, "Program just started");
+
+    //get the fileLocation, has to be done at runtime so hard to make it global really
+    std::string fileLocation;
+    fileLocation = { std::getenv("XDG_CONFIG_HOME") };
+    fileLocation += '/';
+    fileLocation += globals::g_fileLocationRelative.data() ;
 
     // FLOW:
     // Program called with arguments in the form of MODE -> METHOD -> KEY
@@ -69,7 +76,7 @@ int main(int argc, char *argv[]) {
     }
 
     //check if it's been setup initially (e.g. folder ~/.config/password_manager/passwordmaanger.rc exists);
-    if (!(std::ifstream { globals::g_fileLocation.data() })) {
+    if (!(std::ifstream { fileLocation })) {
         logging::log(logging::ERROR, __func__, __LINE__, "Failed to open file, Exiting");
         return 1;
     }
@@ -77,7 +84,14 @@ int main(int argc, char *argv[]) {
         logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
     }
 
-    caesarCipher::encryptFile(key);
+    if (caesarCipher::checkIsEncrypted(fileLocation)) {
+        std::cout << "File is already encrypted, exiting\n";
+        //TODO: make enums for exit codes
+        std::exit(1);
+    } else {
+        std::cout << "not encrypted, doing it\n";
+        caesarCipher::encryptFile(key, fileLocation);
+    }
 //    caesarCipher::decryptFile(key);
 
 
