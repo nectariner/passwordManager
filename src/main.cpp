@@ -16,7 +16,6 @@ void displayHelpMessage() {
     std::cout << "PasswordManager\n";
     std::cout << "Usage - passwordManager Mode METHOD KEY\n";
     std::cout << "\te.g. passwordManager encrypt caesar 11\n";
-
     std::cout << "\nModes -\tencrpyt\n\tunencrypt\n\tinitialise\n";
 }
 
@@ -29,54 +28,32 @@ int main(int argc, char *argv[]) {
     fileLocation += '/';
     fileLocation += globals::g_fileLocationRelative.data() ;
 
-    // FLOW:
-    // Program called with arguments in the form of MODE -> METHOD -> KEY
-    // e.g. "passwordManager encrypt caesar 12"
-    //
-    // if this is valid then assign arguments to variables
-    // if not then print help message
-
-    //no Arguments given
+    //insufficient arguments given
     //NOTE: This needs to be done differently as argc can be equal to 0 with no args
     if (argc < 4) {
         logging::log(logging::INFO, __func__, __LINE__, "no Arguments given");
         displayHelpMessage();
         //TODO: return codes relating to ways the program exits
-        return 0;
+        std::exit(5);
     }
 
-
-    //initialise variables that are arguments when running the program
-
     //encrypt or decrypt
-    //std::string mode {};
-    //mode = static_cast<std::string>(argv[1]);
-    //std::cout << mode << '\n';
     std::string_view mode { argv[1] };
 
+    //currently only caesarcipher
     std::string_view method { argv[2] };
 
     //password / key (e.g. 2 for caesar cipher)
     std::stringstream convert{ argv[3] }; // set up a stringstream variable named convert, initialized with the input from argv[1]
 
 	int key {};
-	if (!(convert >> key)) // do the conversion
+	if (!(convert >> key)){ // do the conversion
 		key = 0; // if conversion fails, set myint to a default value
+    }
 
     std::cout << mode << '\n';
     std::cout << method << '\n';
     std::cout << key << '\n';
-
-    //check if it's been setup initially (e.g. folder ~/.config/password_manager/passwordmaanger.rc exists);
-    //if (!(std::ifstream { fileLocation })) {
-    //    logging::log(logging::ERROR, __func__, __LINE__, "Failed to open file, Exiting");
-    //    return 1;
-    //}
-    //else {
-    //    logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
-    //}
-
-
 
     if (mode == "encrypt"){
 
