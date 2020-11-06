@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include <string>
 #include <string_view>
 #include "globals.hpp"
@@ -17,8 +18,9 @@ void displayHelpMessage() {
 }
 
 #include "encryption.hpp"
-int main(int argc, char *argv[], char *envp[]) {
+int main(int argc, char *argv[]) {
     logging::log(logging::INFO, __func__, __LINE__, "Program just started");
+
     // FLOW:
     // Program called with arguments in the form of MODE -> METHOD -> KEY
     // e.g. "passwordManager encrypt caesar 12"
