@@ -27,5 +27,11 @@ build: build
 run:
 	$(TARGET_DIRECTORY)/output
 
+run-encrypt:
+	$(TARGET_DIRECTORY)/output encrypt caesarcipher 1
+
+run-decrypt:
+	$(TARGET_DIRECTORY)/output decrypt caesarcipher 1
+
 clean:
 	rm -r $(TARGET_DIRECTORY)/*

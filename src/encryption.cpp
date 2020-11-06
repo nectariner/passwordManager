@@ -107,6 +107,7 @@ namespace caesarCipher {
         constexpr std::string_view fileHeader { "[[passwordManager]]" };
         std::ifstream file { fileLocation };
         std::getline(file, firstLine);
+        std::cout << firstLine << '\n';
         if (firstLine == fileHeader){
             std::cout << "they're equal\n";
             return false;
