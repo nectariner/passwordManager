@@ -27,11 +27,16 @@ namespace caesarCipher {
                 break;
             }
             for (std::string::iterator it = encryptedLine.begin(); it != encryptedLine.end(); ++it){
-                decryptedLine += static_cast<char>(*(it) - key);
+                if(*it != '\n') {
+                    decryptedLine += static_cast<char>(*(it) - key);
+                } else {
+                    std::cout << "end of line character is what it is\n";
+                }
             }
-            std::cout << decryptedLine << "\n";
+            decryptedLine += '\n';
 
         }
+            std::cout << decryptedLine;
             return true;
     }
 

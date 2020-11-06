@@ -76,23 +76,23 @@ int main(int argc, char *argv[]) {
     }
 
     //check if it's been setup initially (e.g. folder ~/.config/password_manager/passwordmaanger.rc exists);
-    if (!(std::ifstream { fileLocation })) {
-        logging::log(logging::ERROR, __func__, __LINE__, "Failed to open file, Exiting");
-        return 1;
-    }
-    else {
-        logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
-    }
+    //if (!(std::ifstream { fileLocation })) {
+    //    logging::log(logging::ERROR, __func__, __LINE__, "Failed to open file, Exiting");
+    //    return 1;
+    //}
+    //else {
+    //    logging::log(logging::INFO, __func__, __LINE__, "File opened successfully");
+    //}
 
-    if (caesarCipher::checkIsEncrypted(fileLocation)) {
-        std::cout << "File is already encrypted, exiting\n";
-        //TODO: make enums for exit codes
-        std::exit(1);
-    } else {
-        std::cout << "not encrypted, doing it\n";
-        caesarCipher::encryptFile(key, fileLocation);
-    }
-//    caesarCipher::decryptFile(key);
+    //if (caesarCipher::checkIsEncrypted(fileLocation)) {
+    //    std::cout << "File is already encrypted, exiting\n";
+    //    //TODO: make enums for exit codes
+    //    std::exit(1);
+    //} else {
+    //    std::cout << "not encrypted, doing it\n";
+    //    caesarCipher::encryptFile(key, fileLocation);
+    //}
+    caesarCipher::decryptFile(1, fileLocation);
 
 
     logging::log(logging::INFO, __func__, __LINE__,"end of program, returning 0" );
