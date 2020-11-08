@@ -13,6 +13,11 @@
 
         constexpr std::string_view g_helpMessage { "PasswordManager\nUsage: passwordManager MODE METHOD KEY\ne.g. passwordManager encrypt caesar 11\n" };
 
+        enum EXITCODES {
+            PERMISSIONERR
+        };
     }
+
+
 
 #endif

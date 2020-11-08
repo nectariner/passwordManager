@@ -37,7 +37,6 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-
     //initialise variables that are arguments when running the program
 
     //encrypt or decrypt
