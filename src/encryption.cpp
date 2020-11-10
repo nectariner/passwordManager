@@ -15,10 +15,9 @@
 //REVIEW: Good way of making decrypt just encrypt with "- key" call
 
 namespace caesarCipher {
-    bool decryptFile(int key) {
+    bool decryptFile(int key, std::string fileLocation) {
         logging::log(logging::INFO, __func__, __LINE__);
-        std::ifstream encryptedFile { globals::g_fileLocation.data() };
-
+        std::ifstream encryptedFile { fileLocation };
 
         std::string encryptedLine;
         std::string decryptedLine;
@@ -28,20 +27,25 @@ namespace caesarCipher {
                 break;
             }
             for (std::string::iterator it = encryptedLine.begin(); it != encryptedLine.end(); ++it){
-                decryptedLine += static_cast<char>(*(it) - key);
+                if(*it != '\n') {
+                    decryptedLine += static_cast<char>(*(it) - key);
+                } else {
+                    std::cout << "end of line character is what it is\n";
+                }
             }
-            std::cout << decryptedLine << "\n";
+            decryptedLine += '\n';
 
         }
+            std::cout << decryptedLine;
             return true;
     }
 
 
     //return true if successful encrypt, else return null or false
     //TODO: log an error if it fails
-    bool encryptFile(int key) {
+    bool encryptFile(int key, std::string fileLocation) {
         logging::log(logging::INFO, __func__, __LINE__);
-        std::ifstream permFile { globals::g_fileLocation.data() };
+        std::ifstream permFile { fileLocation };
 
         if(!(permFile)) {
             std::cout << "FAILEDTOOPENPERFMFILE\n";
@@ -51,19 +55,13 @@ namespace caesarCipher {
         //this also gets rid of the first line so no need to skip it afterwards
         //if it's not encrypted, then encrypt
         //if it is then warn the user and exit
-        if (checkIsEncrypted()){
-            std::cout << "File already encrypted, don't do this again\n";
-            std::exit(2);
-        } else {
-            std::cout << "file not encrypted, proceeding\n";
-        }
         //check if the file is already encrypted, fail if it is and don't encrypt again
         std::ofstream newFile { globals::g_tempFileLocation.data(), std::ios::trunc};
         if(!(newFile)){
             std::cout <<"FAILEDTOOPENNEWFILE\n";
         }
 
-        logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation,  "\nNOTE: this is before encrpytion\n");
+        logging::logFileContents(logging::INFO, __func__, fileLocation,  "\nNOTE: this is before encrpytion\n");
 
  //open file
         //string to store the contents of the current line in
@@ -94,21 +92,22 @@ namespace caesarCipher {
 
         //REVIEW: is there a better way to do this?
         system("mv /tmp/.passwordManagerTemp /home/fred/.config/passwordManager/passwordManagerrc");
-        logging::logFileContents(logging::INFO, __func__, globals::g_fileLocation, "\nNOTE: This is after encryption");
+        logging::logFileContents(logging::INFO, __func__, fileLocation, "\nNOTE: This is after encryption");
 
         return true;
     }
 
     //return true if it is already encrypted, false if not
     //check if the first line of the file is [[passwordManager]], if it isn't then it's already encrypted
-    bool checkIsEncrypted(){
+    bool checkIsEncrypted(std::string fileLocation){
         //check if the file is already encrypted, fail if it is and don't encrypt again
         std::string firstLine;
 
         //REVIEW: does this need to be put in globals??
         constexpr std::string_view fileHeader { "[[passwordManager]]" };
-        std::ifstream file { globals::g_fileLocation.data() };
+        std::ifstream file { fileLocation };
         std::getline(file, firstLine);
+        std::cout << firstLine << '\n';
         if (firstLine == fileHeader){
             std::cout << "they're equal\n";
             return false;
